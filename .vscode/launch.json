@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/aidenfmunro/Documents/GitHub/Differentiator",
-      "program": "/home/aidenfmunro/Documents/GitHub/Differentiator/build/Debug/outDebug",
+      "cwd": "/home/aidenfmunro/Documents/GitHub/Differentiator/src",
+      "program": "/home/aidenfmunro/Documents/GitHub/Differentiator/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
