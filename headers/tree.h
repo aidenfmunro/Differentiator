@@ -3,7 +3,9 @@
 
 #include "errors.h"
 
-#define SPECIFIER "%d"
+#include <cstddef>
+
+#define SPECIFIER "%c"
 
 enum Function
 {
@@ -36,7 +38,7 @@ enum Type
 
 union NodeElem_t
 {
-    double     value;
+    double     constVal;
 
     char       var;
 
@@ -79,6 +81,14 @@ ErrorCode deleteNode        (Node* node);
 
 ErrorCode connectNode       (Node* node, Node* leftChild, Node* rightChild);
 
-Node*     createNode        (NodeElem_t* data, char type, Node* left, Node* right);
+Node*     createNode        (NodeElem_t data, char type, Node* left, Node* right);
+
+Node*     createVarNode     (char var, Node* left, Node* right);
+
+Node*     createConstNode   (double value, Node* left, Node* right);
+
+Node*     createFuncNode    (Function funcName, Node* left, Node* right);
+
+char*     getFuncName       (Function func);
 
 #endif

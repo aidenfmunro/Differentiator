@@ -4,7 +4,7 @@
 
 #define BACKGROUND_CHILD_COLOR "\"coral\""
 
-#define DUMP_NAME "\"Tree Dump\""
+#define DUMP_NAME "\"Differentiator Dump\""
 
 #define SHAPE "\"Mrecord\""
 

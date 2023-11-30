@@ -15,11 +15,11 @@ void CreateText(Text* text, const char* filename, size_t sortmode)
 
     text->size     = getSize(filename);
     text->buffer   = parseBuf(text, filename);
-    text->numTokens = countTokens(text);
-    text->lineptrs = getTokenPointers(text);
-    text->tokens    = getTokens(text);
+    // text->numTokens = countTokens(text);
+    // text->lineptrs = getTokenPointers(text);
+    // text->tokens    = getTokens(text);
 
-    generalSort(text, sortmode);
+    // generalSort(text, sortmode);
 }
 
 void AppendText(Text* text, const char* filename)
@@ -41,9 +41,9 @@ void AppendText(Text* text, const char* filename)
 
 void DestroyText(Text* text)
 {
-  free((void*)text->lineptrs);
+  // free((void*)text->lineptrs);
   free((void*)text->buffer);
-  free((void*)text->tokens);
+  // free((void*)text->tokens);
 }
 
 char* const* getTokenPointers(Text *text)
