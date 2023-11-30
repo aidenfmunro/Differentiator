@@ -81,6 +81,8 @@ ErrorCode deleteNode        (Node* node);
 
 ErrorCode connectNode       (Node* node, Node* leftChild, Node* rightChild);
 
+Node*     copyNode(Node* originalNode);
+
 Node*     createNode        (NodeElem_t data, char type, Node* left, Node* right);
 
 Node*     createVarNode     (char var, Node* left, Node* right);

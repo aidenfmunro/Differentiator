@@ -25,10 +25,10 @@ static ErrorCode _dumpTreeTxt    (Node* node, FILE* outFile);
 
 static ErrorCode _checkTreeLinks (Tree* tree, Node* node, size_t* counter);
 
+static ErrorCode parseToken      (char** buffer, Node* curNode);
+
 static Node*     readTree        (Tree* tree, char** buffer, Node* parent);
 
-
-ErrorCode parseToken(char** buffer, Node* curNode);
 
 ErrorCode ConstructTree          (Tree* tree, const char* baseFileName)
 {
@@ -80,7 +80,7 @@ static Node* readTree(Tree* tree, char** buffer, Node* parent)
     if (**buffer == '(')
         leftSubTree = readTree(tree, buffer, curNode);
 
-    if (parseToken(buffer, curNode) == UNRECOGNISED_TOKEN)
+    if (parseToken(buffer, curNode) != OK)
         return NULL;
     
     if (**buffer == '(')
@@ -255,6 +255,7 @@ static ErrorCode _checkTreeLinks(Tree* tree, Node* node, size_t* counter)
     if ((node->left != NULL && node->left->parent != node) || (node->right != NULL && node->right->parent != node))
     {
         tree->error = TREE_LINKING_ERROR;
+
         return TREE_LINKING_ERROR;
     }
 
@@ -267,7 +268,7 @@ static ErrorCode _checkTreeLinks(Tree* tree, Node* node, size_t* counter)
     return OK;
 }
 
-Node* createNode(NodeElem_t data, char type, Node* left, Node* right) // TODO: put in tree.cpp
+Node* createNode(NodeElem_t data, char type, Node* left, Node* right)  
 {
     SafeCalloc(newNode, 1, Node, NULL);
 
@@ -335,12 +336,13 @@ Node* copyNode(Node* originalNode)
         default:
         {
             free(newNode);
-            return NULL; // TODO: return error message
+
+            return NULL;   // TODO: return error message
         }
     }
 
     if (originalNode->left)
-        newNode->left = copyNode(originalNode->left);
+        newNode->left  = copyNode(originalNode->left);
     
     if (originalNode->right)
         newNode->right = copyNode(originalNode->right);
@@ -541,6 +543,27 @@ char* getFuncName(Function func)
         case ARCCTG:
             return "arcctg";
         
+        case ARCTG:
+            return "arctg";
+            
+        case ARCCOS:
+            return "arccos";
+
+        case ARCSIN:
+            return "arcsin";
+
+        case SH:
+            return "sh";
+
+        case CH:
+            return "ch";
+
+        case TH:
+            return "th";
+
+        case CTH:
+            return "cth";    
+        
         case LN:
             return "ln";
         
@@ -549,8 +572,6 @@ char* getFuncName(Function func)
 
         default:
             return "UNKNOWN";
-
-        // TODO: add functions
     }
 }
 
