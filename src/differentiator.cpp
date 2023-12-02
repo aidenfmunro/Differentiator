@@ -22,6 +22,8 @@ static Node* diffLn  (Node* curNode);
 
 static Node* diffPow (Node* curNode);
 
+#define cN  copyNode (curNode)
+
 #define cL  copyNode (curNode->left)
 #define cR  copyNode (curNode->right)
 
@@ -134,24 +136,28 @@ static Node* diffCos(Node* curNode)
 
 static Node* diffTg(Node* curNode)
 {
-    return COMP_FUNC(DIV_(NUM_(1), POW_(NUM_(2), COS_(cR))), cR);
+    return COMP_FUNC(DIV_(NUM_(1),  POW_(COS_(cR), NUM_(2))), cR);
 }
 
 static Node* diffCtg(Node* curNode)
 {
-    return COMP_FUNC(DIV_(NUM_(-1), POW_(NUM_(2), SIN_(cR))), cR);
+    return COMP_FUNC(DIV_(NUM_(-1), POW_(SIN_(cR), NUM_(2))), cR);
 }
 
 static Node* diffLn(Node* curNode)
 {
-
+    return COMP_FUNC(DIV_(NUM_(1), cR), cR);
 }
 
 static Node* diffPow(Node* curNode)
 {
-
+    // return COMP_FUNC(MUL_(cN, ADD_(MUL_())));
 }
+
+
 
 // TODO: don't forget other functions too :P
 
 // TODO: написать рекурсивный спуск
+
+// TODO: поддержка числа pi и e

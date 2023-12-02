@@ -152,7 +152,7 @@ ErrorCode parseToken(char** buffer, Node* curNode)
 
     AssertSoft(tokenLen > 0, UNRECOGNISED_TOKEN);
 
-    if      (strncmp("+", *buffer, 1) == 0)
+    if      (strncmp("+", *buffer, 1) == 0) // TODO: обертку над функцией и sizeof() - 1;
     {
         fillFuncNode(curNode, ADD);
     }
