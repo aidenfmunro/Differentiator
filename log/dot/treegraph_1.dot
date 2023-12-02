@@ -3,19 +3,35 @@
   rankdir   = "TB";
 
   label     = "Differentiator Dump";
-"node2" [shape = "record", label = "{*}", fillcolor = "coral"]
-"node3" [shape = "record", label = "{/}", fillcolor = "coral"]
-"node4" [shape = "record", label = "{-1}", fillcolor = "aqua"]
+"node3" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node4" [shape = "record", label = "{/}", fillcolor = "coral"]
+"node5" [shape = "record", label = "{1}", fillcolor = "aqua"]
+"node4" -> "node5"
+"node6" [shape = "record", label = "{^}", fillcolor = "coral"]
+"node7" [shape = "record", label = "{2}", fillcolor = "aqua"]
+"node6" -> "node7"
+"node8" [shape = "record", label = "{cos}", fillcolor = "coral"]
+"node9" [shape = "record", label = "{ctg}", fillcolor = "coral"]
+"node10" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node9" -> "node10"
+"node8" -> "node9"
+"node6" -> "node8"
+"node4" -> "node6"
 "node3" -> "node4"
-"node5" [shape = "record", label = "{^}", fillcolor = "coral"]
-"node6" [shape = "record", label = "{2}", fillcolor = "aqua"]
-"node5" -> "node6"
-"node7" [shape = "record", label = "{sin}", fillcolor = "coral"]
-"node8" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
-"node7" -> "node8"
-"node5" -> "node7"
-"node3" -> "node5"
-"node2" -> "node3"
-"node9" [shape = "record", label = "{1}", fillcolor = "aqua"]
-"node2" -> "node9"
+"node11" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node12" [shape = "record", label = "{/}", fillcolor = "coral"]
+"node13" [shape = "record", label = "{-1}", fillcolor = "aqua"]
+"node12" -> "node13"
+"node14" [shape = "record", label = "{^}", fillcolor = "coral"]
+"node15" [shape = "record", label = "{2}", fillcolor = "aqua"]
+"node14" -> "node15"
+"node16" [shape = "record", label = "{sin}", fillcolor = "coral"]
+"node17" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node16" -> "node17"
+"node14" -> "node16"
+"node12" -> "node14"
+"node11" -> "node12"
+"node18" [shape = "record", label = "{1}", fillcolor = "aqua"]
+"node11" -> "node18"
+"node3" -> "node11"
   }
