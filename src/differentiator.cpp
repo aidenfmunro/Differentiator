@@ -81,6 +81,9 @@ Node* differentiateTree(Node* curNode)
                 case TG:
                     return diffTg(curNode);
 
+                case CTG:
+                    return diffCtg(curNode);
+
                 case LN:
                     return diffLn(curNode);
 
@@ -136,7 +139,7 @@ static Node* diffTg(Node* curNode)
 
 static Node* diffCtg(Node* curNode)
 {
-
+    return COMP_FUNC(DIV_(NUM_(-1), POW_(NUM_(2), SIN_(cR))), cR);
 }
 
 static Node* diffLn(Node* curNode)

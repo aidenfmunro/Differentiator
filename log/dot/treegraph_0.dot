@@ -3,7 +3,7 @@
   rankdir   = "TB";
 
   label     = "Differentiator Dump";
-"node0" [shape = "record", label = "{tg}", fillcolor = "coral"]
+"node0" [shape = "record", label = "{ctg}", fillcolor = "coral"]
 "node1" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
 "node0" -> "node1"
   }
