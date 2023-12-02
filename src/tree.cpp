@@ -394,18 +394,18 @@ static ErrorCode _dumpTreeTxt(Node* node, FILE* outFile) // TODO: create tree wi
 
     if (node == NULL)
     {
-        dumpText("nil\n");
+        dumpText("nil ");
 
         return OK;
     }
 
-    dumpText("(\n"SPECIFIER"\n", node->data); 
-
     _dumpTreeTxt(node->left, outFile);
+
+    dumpText("("SPECIFIER" ", node->data); 
 
     _dumpTreeTxt(node->right, outFile);
 
-    dumpText(")\n");
+    dumpText(") ");
 
     return OK;
 }

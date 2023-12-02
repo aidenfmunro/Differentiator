@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "tree.h"
+#include "differentiator.h"
 
 int main(void)
 {
@@ -10,6 +10,10 @@ int main(void)
     DumpTreeTxt(&tree, "out.txt");
 
     printf("%p\n", tree.root);
+
+    DumpTreeGraph(tree.root);
+
+    tree.root = differentiateTree(tree.root);
 
     DumpTreeGraph(tree.root);
 
