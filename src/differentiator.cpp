@@ -131,7 +131,7 @@ static Node* diffCos(Node* curNode)
 
 static Node* diffTg(Node* curNode)
 {
-
+    return COMP_FUNC(DIV_(NUM_(1), POW_(NUM_(2), COS_(cR))), cR);
 }
 
 static Node* diffCtg(Node* curNode)
@@ -150,3 +150,5 @@ static Node* diffPow(Node* curNode)
 }
 
 // TODO: don't forget other functions too :P
+
+// TODO: написать рекурсивный спуск
