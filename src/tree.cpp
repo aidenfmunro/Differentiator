@@ -456,7 +456,7 @@ ErrorCode DumpTreeGraph(Node* node)
     return OK;
 }
 
-static ErrorCode _dumpTreeDot(Node* node, FILE* outFile) // TODO: wtf make it more clean, // create_node, connect_node
+static ErrorCode _dumpTreeDot(Node* node, FILE* outFile)
 {
     AssertSoft(outFile, UNABLE_TO_OPEN_FILE);
     AssertSoft(node,    NULL_PTR);

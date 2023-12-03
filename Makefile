@@ -25,7 +25,7 @@ draw:
 	dot -Tpng treegraph.dot -o tree.png
 
 dirs:
-	mkdir log log/txt log/dot log/img obj
+	mkdir log log/txt log/dot log/img obj log/pdf log/tex
 
 clean :
-	rm $(TARGET) $(PREF_OBJ)*.o log/img/*.png log/dot/*.dot log/txt/*.txt
+	rm $(TARGET) $(PREF_OBJ)*.o log/img/*.png log/dot/*.dot log/txt/*.txt log/pdf/*.pdf log/tex/*.tex

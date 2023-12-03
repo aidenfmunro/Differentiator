@@ -1,6 +1,7 @@
-#include <stdio.h>
+
+
 #include "differentiator.h"
-#include "utils.h"
+
 
 static Node* diffAdd (Node* curNode);
 
@@ -42,7 +43,7 @@ static Node* diffPow (Node* curNode);
 #define  TG_(value)        createFuncNode (TG,  NULL, value)
 #define  LN_(value)        createFuncNode (LN,  NULL, value)
 
-#define NUM_(value)        createConstNode(value, NULL, NULL)
+#define NUM_(value)        createConstNode (value, NULL, NULL)
 
 #define COMP_FUNC(externalFunc, internalFunc)  MUL_(externalFunc, differentiateTree(internalFunc))  
 
@@ -153,6 +154,202 @@ static Node* diffPow(Node* curNode)
 {
     // return COMP_FUNC(MUL_(cN, ADD_(MUL_())));
 }
+
+#define dumpTex(...) fprintf(outFile, __VA_ARGS__);
+
+ErrorCode DumpTreeTex(Tree* tree, const char* filename)
+{
+    myOpen(filename, "w", outFile);
+
+    
+
+    myClose(outFile);
+}
+
+#define DUMP_L_TREE(node) _dumpTreeTex(node->left,  outFile)
+#define DUMP_R_TREE(node) _dumpTreeTex(node->right, outFile)
+
+
+ErrorCode _dumpTreeTex(Node* node, FILE* outFile)
+{
+    AssertSoft(node, NULL_PTR);
+
+    switch (node->type)
+    {
+        case CONST:
+        {
+            dumpTex("%lg", node->data.constVal);
+            break;
+        }   
+        case VAR:
+        {
+            dumpTex("%c", node->data.var);
+            break;
+        }
+        case FUNC:
+        {
+            switch (node->data.func)
+            {
+            case ADD:
+            {
+                dumpTex("(");
+
+                DUMP_L_TREE(node);
+
+                dumpTex(" + ");
+
+                DUMP_R_TREE(node);
+
+                dumpTex(")");
+
+                break;
+            }
+
+            case SUB:
+            {
+                dumpTex("(");
+
+                DUMP_L_TREE(node);
+
+                dumpTex(" - ");
+
+                DUMP_R_TREE(node);
+
+                dumpTex(")");
+
+                break;
+            }
+
+            case MUL:
+            {
+                dumpTex("(");
+
+                DUMP_L_TREE(node);
+
+                dumpTex(" + ");
+
+                DUMP_R_TREE(node);
+
+                dumpTex(")");
+
+                break;
+            }
+            case DIV:
+            {
+                dumpTex("(");
+
+                dumpTex("\\frac{");
+
+                DUMP_L_TREE(node);
+
+                dumpTex("}{");
+
+                DUMP_R_TREE(node);
+
+                dumpTex("}");
+
+                dumpTex(")");
+
+                break;
+            }
+            case SIN:
+            {
+               dumpTex("\\sin");
+
+               dumpTex("(");
+
+               DUMP_R_TREE(node);
+
+               dumpTex(")")
+
+               break;
+            }
+            case COS:
+            {
+                dumpTex("\\cos");
+
+                dumpTex("(");
+
+                DUMP_R_TREE(node);
+
+                dumpTex(")");
+
+                break;
+            }
+            case TG:
+            {
+                dumpTex("\\tan");
+
+                dumpTex("(");
+
+                DUMP_R_TREE(node);
+
+                dumpTex(")");
+
+                break;
+            }
+            case CTG:
+            {
+                dumpTex("\\cot");
+
+                dumpTex("(");
+
+                DUMP_R_TREE(node);
+
+                dumpTex(")");
+
+                break;
+            }
+
+            case LN:
+            {
+                dumpTex("\\ln");
+
+                dumpTex("(");
+
+                DUMP_R_TREE(node);
+
+                dumpTex(")");
+
+                break;
+            }
+            case POW:
+            {
+                dumpTex("(");
+
+                DUMP_L_TREE(node);
+
+                dumpTex("^{");
+
+                DUMP_R_TREE(node);
+
+                dumpTex("}");
+
+                break;
+            }
+
+            default:
+            {
+                printf("Unknown function: %d!\n", node->data.func);
+                return NULL;
+            }
+            }
+        
+        default:
+        {
+            printf("Unknown type: %d!\n", node->type);
+            return NULL;
+        }
+        }
+    }
+}
+
+
+
+
+
+
+
 
 
 
