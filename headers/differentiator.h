@@ -7,6 +7,6 @@
 #include "tree.h"
 #include "utils.h"
 
-Node* differentiateTree(Node* curNode);
+Node* differentiateTree(Node* curNode, FILE* outFile);
 
 #endif
