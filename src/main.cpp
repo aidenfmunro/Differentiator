@@ -11,11 +11,19 @@ int main(void)
 
     printf("%p\n", tree.root);
 
+    myOpen("equation.tex", "w", outFile);
+
+    fprintf(outFile, BeginTexDocument);
+
     DumpTreeGraph(tree.root);
 
-    tree.root = differentiateTree(tree.root);
+    tree.root = differentiateTree(tree.root, outFile);
+
+    fprintf(outFile, EndTexDocument);
 
     DumpTreeGraph(tree.root);
+
+    myClose(outFile);
 
     DestroyTree(&tree);
 

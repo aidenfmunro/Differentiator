@@ -309,7 +309,7 @@ Node* copyNode(Node* originalNode)
 {
     AssertSoft(originalNode, NULL);
 
-    SafeCalloc(newNode, 1, Node, NULL);
+    SafeCalloc(newNode, 1, Node, NULL); // check next line!
 
     newNode->type = originalNode->type;
 

@@ -31,6 +31,10 @@ ErrorCode endExpressionTex(FILE* outFile);
 
 ErrorCode dumpExpressionTex(Node* node, FILE* outFile);
 
+ErrorCode dumpDiffExpressionTex(Node* node, FILE* outFile);
+
+ErrorCode dumpDiffResExpressionTex(Node* node, FILE* outFile);
+
 #define cN  copyNode (curNode)
 
 #define cL  copyNode (curNode->left)
@@ -117,16 +121,12 @@ static Node* diffAdd(Node* curNode, FILE* outFile)
 {
     AssertSoft(curNode, NULL);
 
-    dumpExpressionTex(curNode, outFile);
-
-    return ADD_(dL, dR);
+    return  ADD_(dL, dR);
 }
 
 static Node* diffSub(Node* curNode, FILE* outFile)
 {
     AssertSoft(curNode, NULL);
-
-    dumpExpressionTex(curNode, outFile);
 
     return SUB_(dL, dR);
 }
@@ -135,63 +135,89 @@ static Node* diffMul(Node* curNode, FILE* outFile)
 {
     AssertSoft(curNode, NULL);
 
-    dumpExpressionTex(curNode, outFile);
+    dumpExpressionTex(curNode, NULL);
 
-    return ADD_(MUL_(dL, cR), MUL_(cL, dR));
+    Node* result = ADD_(MUL_(dL, cR), MUL_(cL, dR));
+
+    return result;
 }
 
 static Node* diffDiv(Node* curNode, FILE* outFile)
 {
     AssertSoft(curNode, NULL);
 
-    dumpExpressionTex(curNode, outFile);
+    dumpDiffExpressionTex(curNode, outFile);    
 
-    return DIV_(SUB_(MUL_(dL, cR), MUL_(cL, dR)), POW_(cR, NUM_(2)));
+    Node* result = DIV_(SUB_(MUL_(dL, cR), MUL_(cL, dR)), POW_(cR, NUM_(2)));
+
+    dumpDiffResExpressionTex(result, outFile);
+
+    return result;
 }
 
 static Node* diffSin(Node* curNode, FILE* outFile)
 {
     AssertSoft(curNode, NULL);
 
-    dumpExpressionTex(curNode, outFile);
+    dumpDiffExpressionTex(curNode, outFile);
 
-    return COMP_FUNC(COS_(cR), cR);
+    Node* result = COMP_FUNC(COS_(cR), cR);
+
+    dumpDiffResExpressionTex(result, outFile);
+
+    return result;
 }
 
 static Node* diffCos(Node* curNode, FILE* outFile)
 {
     AssertSoft(curNode, NULL);
 
-    dumpExpressionTex(curNode, outFile);
+    dumpDiffExpressionTex(curNode, outFile);
 
-    return COMP_FUNC(MUL_(NUM_(-1), SIN_(cR)), cR);
+    Node* result = COMP_FUNC(MUL_(NUM_(-1), SIN_(cR)), cR);
+
+    dumpDiffResExpressionTex(result, outFile);
+
+    return result;
 }
 
 static Node* diffTg(Node* curNode, FILE* outFile)
 {
     AssertSoft(curNode, NULL);
 
-    dumpExpressionTex(curNode, outFile);
+    dumpDiffExpressionTex(curNode, outFile);
 
-    return COMP_FUNC(DIV_(NUM_(1),  POW_(COS_(cR), NUM_(2))), cR);
+    Node* result = COMP_FUNC(DIV_(NUM_(1),  POW_(COS_(cR), NUM_(2))), cR);
+
+    dumpDiffResExpressionTex(result, outFile);
+
+    return result;
 }
 
 static Node* diffCtg(Node* curNode, FILE* outFile)
 {
     AssertSoft(curNode, NULL);
 
-    dumpExpressionTex(curNode, outFile);
+    dumpDiffExpressionTex(curNode, outFile);
 
-    return COMP_FUNC(DIV_(NUM_(-1), POW_(SIN_(cR), NUM_(2))), cR);
+    Node* result = COMP_FUNC(DIV_(NUM_(-1), POW_(SIN_(cR), NUM_(2))), cR);
+
+    dumpDiffResExpressionTex(result, outFile);
+
+    return result;
 }
 
 static Node* diffLn(Node* curNode, FILE* outFile)
 {
     AssertSoft(curNode, NULL);
 
-    dumpExpressionTex(curNode, NULL);
+    dumpExpressionTex(curNode, outFile);
 
-    return COMP_FUNC(DIV_(NUM_(1), cR), cR);
+    Node* result = COMP_FUNC(DIV_(NUM_(1), cR), cR);
+
+    dumpDiffResExpressionTex(result, outFile);
+
+    return result;
 }
 
 static Node* diffPow(Node* curNode, FILE* outFile)
@@ -269,33 +295,25 @@ static ErrorCode _dumpTreeTex(Node* node, FILE* outFile)
 
             case MUL:
             {
-                dumpTex("(");
-
                 DUMP_L_TREE(node);
 
-                dumpTex(" + ");
+                dumpTex(" \\cdot ");
 
                 DUMP_R_TREE(node);
-
-                dumpTex(")");
 
                 break;
             }
             case DIV:
             {
-                dumpTex("(");
-
-                dumpTex("\\frac{");
+                dumpTex(" \\frac{");
 
                 DUMP_L_TREE(node);
 
-                dumpTex("}{");
+                dumpTex(" }{ ");
 
                 DUMP_R_TREE(node);
 
-                dumpTex("}");
-
-                dumpTex(")");
+                dumpTex(" } ");
 
                 break;
             }
@@ -381,14 +399,18 @@ static ErrorCode _dumpTreeTex(Node* node, FILE* outFile)
                 return NULL;
             }
             }
-        
+
+            break;
+        }
         default:
         {
             printf("Unknown type: %d!\n", node->type);
             return NULL;
         }
-        }
+        
     }
+
+    return OK;
 }
 
 #undef DUMP_L_TREE
@@ -399,8 +421,8 @@ ErrorCode beginExpressionTex(FILE* outFile)
     AssertSoft(outFile, UNABLE_TO_OPEN_FILE);
 
     dumpTex("\n\n"
-            "\\begin{center}"
-            "\\begin{math}");
+            "\\begin{center}\n"
+            "\\begin{math}\n\n");
 
     return OK;
 }
@@ -410,19 +432,52 @@ ErrorCode endExpressionTex(FILE* outFile)
     AssertSoft(outFile, UNABLE_TO_OPEN_FILE);
 
     dumpTex("\n\n"
-            "\\end{center}"
-            "\\end{math}");
+            "\\end{math}\n"
+            "\\end{center}\n\n");
 
     return OK;
 }
 
 ErrorCode dumpExpressionTex(Node* node, FILE* outFile)
 {
+    AssertSoft(node, NULL_PTR);
     AssertSoft(outFile, UNABLE_TO_OPEN_FILE);
 
     beginExpressionTex(outFile);
 
     _dumpTreeTex(node, outFile);
+
+    endExpressionTex(outFile);
+
+    return OK;
+}
+
+ErrorCode dumpDiffResExpressionTex(Node* node, FILE* outFile)
+{
+    AssertSoft(node, NULL_PTR);
+    AssertSoft(outFile, UNABLE_TO_OPEN_FILE);
+
+    beginExpressionTex(outFile);
+
+    _dumpTreeTex(node, outFile);
+
+    endExpressionTex(outFile);
+
+    return OK;   
+}
+
+ErrorCode dumpDiffExpressionTex(Node* node, FILE* outFile)
+{
+    AssertSoft(node, NULL_PTR);
+    AssertSoft(outFile, UNABLE_TO_OPEN_FILE);
+
+    beginExpressionTex(outFile);
+
+    dumpTex("(");
+
+    _dumpTreeTex(node, outFile);
+
+    dumpTex(")' = ");
 
     endExpressionTex(outFile);
 
@@ -435,6 +490,7 @@ ErrorCode dumpExpressionTex(Node* node, FILE* outFile)
 
 
 
+// TODO: pow function diff
 
 // TODO: don't forget other functions too :P
 
