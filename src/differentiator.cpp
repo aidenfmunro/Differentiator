@@ -422,7 +422,7 @@ ErrorCode beginExpressionTex(FILE* outFile)
 
     dumpTex("\n\n"
             "\\begin{center}\n"
-            "\\begin{math}\n\n");
+            "$$");
 
     return OK;
 }
@@ -431,8 +431,8 @@ ErrorCode endExpressionTex(FILE* outFile)
 {
     AssertSoft(outFile, UNABLE_TO_OPEN_FILE);
 
-    dumpTex("\n\n"
-            "\\end{math}\n"
+    dumpTex("$$"
+            "\n"
             "\\end{center}\n\n");
 
     return OK;
