@@ -128,6 +128,8 @@ static Node* diffSub(Node* curNode, FILE* outFile)
 {
     AssertSoft(curNode, NULL);
 
+    dumpExpressionTex(curNode, outFile);
+
     return SUB_(dL, dR);
 }
 
@@ -146,11 +148,9 @@ static Node* diffDiv(Node* curNode, FILE* outFile)
 {
     AssertSoft(curNode, NULL);
 
-    dumpDiffExpressionTex(curNode, outFile);    
-
     Node* result = DIV_(SUB_(MUL_(dL, cR), MUL_(cL, dR)), POW_(cR, NUM_(2)));
 
-    dumpDiffResExpressionTex(result, outFile);
+    dumpDiffResExpressionTex(curNode, outFile);
 
     return result;
 }
@@ -211,7 +211,7 @@ static Node* diffLn(Node* curNode, FILE* outFile)
 {
     AssertSoft(curNode, NULL);
 
-    dumpExpressionTex(curNode, outFile);
+    dumpDiffExpressionTex(curNode, outFile);
 
     Node* result = COMP_FUNC(DIV_(NUM_(1), cR), cR);
 
@@ -231,13 +231,49 @@ static Node* diffPow(Node* curNode, FILE* outFile)
 
 #define dumpTex(...) fprintf(outFile, __VA_ARGS__);
 
+const int MAX_FILENAME_LENGTH = 256;
+
+const int MAX_COMMAND_LENGTH  = 256;
+
 ErrorCode DumpTreeTex(Tree* tree, const char* texFileName)
 {
-    myOpen(texFileName, "w", outFile);
+    static int TEX_DUMP_NUM = 0;
 
+    char filename[MAX_FILENAME_LENGTH] = {};
 
+    sprintf(filename, "result_%d", TEX_DUMP_NUM);
+
+    char command0[MAX_COMMAND_LENGTH] = {};
+
+    sprintf(command0, "log/tex/%s.tex", filename);
+
+    myOpen(command0, "w", outFile);
+
+    dumpTex(BeginTexDocument);
+
+    dumpExpressionTex(tree->root, outFile);
+
+    tree->root = differentiateTree(tree->root, outFile);
+
+    dumpTex(EndTexDocument);
 
     myClose(outFile);
+
+    char command1[MAX_COMMAND_LENGTH] = {};
+
+    sprintf(command1, "pdflatex --output-directory=log/pdf log/tex/%s.tex", filename);
+
+    system(command1);
+
+    char command2[MAX_COMMAND_LENGTH] = {};
+
+    sprintf(command2, "open log/pdf/%s.pdf", filename);
+
+    system(command2);
+
+    DestroyTree(tree);
+
+    return OK;
 }
 
 #define DUMP_L_TREE(node) _dumpTreeTex(node->left,  outFile)
@@ -477,13 +513,12 @@ ErrorCode dumpDiffExpressionTex(Node* node, FILE* outFile)
 
     _dumpTreeTex(node, outFile);
 
-    dumpTex(")' = ");
+    dumpTex(")'");
 
     endExpressionTex(outFile);
 
     return OK;
 }
-
 
 
 

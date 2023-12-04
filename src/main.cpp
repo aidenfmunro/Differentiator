@@ -3,29 +3,14 @@
 
 int main(void)
 {
-    Tree tree = {};
+   Tree tree = {};
 
-    ConstructTree(&tree, "expression.txt");
+   ConstructTree(&tree, "expression.txt");
 
-    DumpTreeTxt(&tree, "out.txt");
+   DumpTreeTex(&tree, "equation.tex");
 
-    printf("%p\n", tree.root);
+   DestroyTree(&tree);
 
-    myOpen("equation.tex", "w", outFile);
-
-    fprintf(outFile, BeginTexDocument);
-
-    DumpTreeGraph(tree.root);
-
-    tree.root = differentiateTree(tree.root, outFile);
-
-    fprintf(outFile, EndTexDocument);
-
-    DumpTreeGraph(tree.root);
-
-    myClose(outFile);
-
-    DestroyTree(&tree);
 
     return OK; 
 }

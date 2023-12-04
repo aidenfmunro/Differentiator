@@ -3,11 +3,14 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "tree.h"
 #include "utils.h"
 
 Node* differentiateTree(Node* curNode, FILE* outFile);
+
+ErrorCode DumpTreeTex(Tree* tree, const char* texFileName);
 
 
 static const char* BeginTexDocument = "\\documentclass[a4paper,12pt]{article}\n"
