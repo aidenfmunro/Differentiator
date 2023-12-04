@@ -10,8 +10,7 @@
 
 Node* differentiateTree(Node* curNode, FILE* outFile);
 
-ErrorCode DumpTreeTex(Tree* tree, const char* texFileName);
-
+ErrorCode DumpTreeTex(Tree* tree);
 
 static const char* BeginTexDocument = "\\documentclass[a4paper,12pt]{article}\n"
                                       "\\usepackage{cmap}\n"
@@ -27,7 +26,7 @@ static const char* BeginTexDocument = "\\documentclass[a4paper,12pt]{article}\n"
                                       "\\usepackage[normalem]{ulem}\n"
                                       "\\definecolor{urlcolor}{HTML}{799B03}\n"
                                       "\\title{\\textbf{Дифференцирование древних викингов}}\n"
-                                      "\\author{Эйден Ебейший из викингов}\n"
+                                      "\\author{Эйден Манро мудрейший из викингов}\n"
                                       "\\date{2023}\n"
                                       "\\begin{document}\n"
                                       "\\maketitle\n";

@@ -235,7 +235,7 @@ const int MAX_FILENAME_LENGTH = 256;
 
 const int MAX_COMMAND_LENGTH  = 256;
 
-ErrorCode DumpTreeTex(Tree* tree, const char* texFileName)
+ErrorCode DumpTreeTex(Tree* tree)
 {
     static int TEX_DUMP_NUM = 0;
 
@@ -458,7 +458,7 @@ ErrorCode beginExpressionTex(FILE* outFile)
 
     dumpTex("\n\n"
             "\\begin{center}\n"
-            "$$");
+            "\\begin{equation}\n");
 
     return OK;
 }
@@ -467,9 +467,9 @@ ErrorCode endExpressionTex(FILE* outFile)
 {
     AssertSoft(outFile, UNABLE_TO_OPEN_FILE);
 
-    dumpTex("$$"
-            "\n"
-            "\\end{center}\n\n");
+    dumpTex("\n\\end{equation}\n"
+            "\\end{center}"
+            "\n\n");
 
     return OK;
 }

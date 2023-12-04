@@ -7,9 +7,19 @@ int main(void)
 
    ConstructTree(&tree, "expression.txt");
 
-   DumpTreeTex(&tree, "equation.tex");
+   DumpTreeTex(&tree);
+
+   DumpTreeGraph(tree.root);
 
    DestroyTree(&tree);
+
+   // Tree tree1 = {};
+
+   // ConstructTree(&tree1, "expression1.txt");
+
+   // DumpTreeTex(&tree, "ssss");
+
+   // DestroyTree(&tree);
 
 
     return OK; 
