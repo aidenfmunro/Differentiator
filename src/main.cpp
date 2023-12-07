@@ -19,6 +19,8 @@ int main(void)
 
     DumpTreeGraph(tree.root);
 
+    DumpTreeTex(&tree);
+
     DestroyTree(&tree);
 
     // Tree tree1 = {};

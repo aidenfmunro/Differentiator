@@ -225,9 +225,30 @@ static Node* diffPow(Node* curNode, FILE* outFile)
 {
     AssertSoft(curNode, NULL);
 
+    Node* result = NULL;
+
     dumpExpressionTex(curNode, NULL);
 
-    // return COMP_FUNC(MUL_(cN, ADD_(MUL_())));
+    if (curNode->right->type == CONST)
+    {
+        Node* diffExternalFunc = POW_(cL, NUM_(cR->data.constVal - 1));
+
+        diffExternalFunc = MUL_(NUM_(cR->data.constVal), diffExternalFunc);
+
+        result = COMP_FUNC(diffExternalFunc, cL);
+    }
+    else // f^g * (g' * ln(f) + g * f' * 1/f)
+    {
+        Node* leftSubPart  = MUL_(dR, LN_(cL));
+
+        Node* rightSubPart = MUL_(cR, MUL_(dL, DIV_(NUM_(1), cL)));
+
+        result = MUL_(cN, ADD_(leftSubPart, rightSubPart)); 
+    }
+
+    dumpDiffResExpressionTex(result, outFile);
+
+    return result;
 }
 
 #define dumpTex(...) fprintf(outFile, __VA_ARGS__);
@@ -244,11 +265,13 @@ ErrorCode DumpTreeTex(Tree* tree)
 
     sprintf(filename, "result_%d", TEX_DUMP_NUM);
 
+
     char command0[MAX_COMMAND_LENGTH] = {};
 
     sprintf(command0, "log/tex/%s.tex", filename);
 
     myOpen(command0, "w", outFile);
+
 
     dumpTex(BeginTexDocument);
 
@@ -258,7 +281,9 @@ ErrorCode DumpTreeTex(Tree* tree)
 
     dumpTex(EndTexDocument);
 
+
     myClose(outFile);
+
 
     char command1[MAX_COMMAND_LENGTH] = {};
 
@@ -266,11 +291,13 @@ ErrorCode DumpTreeTex(Tree* tree)
 
     system(command1);
 
+
     char command2[MAX_COMMAND_LENGTH] = {};
 
     sprintf(command2, "open log/pdf/%s.pdf", filename);
 
     system(command2);
+
 
     DestroyTree(tree);
 
@@ -417,8 +444,6 @@ static ErrorCode _dumpTreeTex(Node* node, FILE* outFile)
             }
             case POW:
             {
-                dumpTex("(");
-
                 DUMP_L_TREE(node);
 
                 dumpTex("^{");
@@ -531,7 +556,7 @@ Node* GetId();
 
 Node* GetN();
 
-const char* expression = "x+(x*x)-8+2*tg(ln(x))";
+const char* expression = "x^x";
 
 int curPos = 0;
 
@@ -622,7 +647,7 @@ Node* GetP()
 
         firstNode = GetE();
 
-        // assert for ')'
+        AssertSoft(expression[curPos] == ')', NULL); // TODO: print error message for language
 
         curPos++;
 
