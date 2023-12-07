@@ -1,1 +1,0 @@
-((cos(x)*(tg(ln((sin(x))+cos(x)))))
