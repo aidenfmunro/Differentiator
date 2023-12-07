@@ -279,6 +279,8 @@ ErrorCode DumpTreeTex(Tree* tree)
 
     tree->root = differentiateTree(tree->root, outFile);
 
+    dumpExpressionTex(tree->root, outFile);
+
     dumpTex(EndTexDocument);
 
 
@@ -560,7 +562,7 @@ Node* GetId();
 
 Node* GetN();
 
-const char* expression = "x^x^x";
+const char* expression = "x^x*(x/cos(x))";
 
 int curPos = 0;
 
@@ -726,8 +728,6 @@ Node* GetN()
 
     return NUM_(value);
 }
-
-// TODO: pow function diff
 
 // TODO: don't forget other functions too :P
 
