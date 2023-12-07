@@ -2,7 +2,7 @@
 
 #define SYNTAX_ASSERT(expr) if (!(expr)) printf("SYNTAX ERROR IN LINE %d\n", __LINE__)
 
-const char* s = "1000-7*100/(30+5*10-5*(100/50))";
+const char* s = "5+5+7";
 
 int         p = 0;
 

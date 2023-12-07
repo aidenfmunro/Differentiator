@@ -1,7 +1,4 @@
-
-
 #include "differentiator.h"
-
 
 static Node* diffAdd (Node* curNode, FILE* outFile);
 
@@ -56,6 +53,8 @@ ErrorCode dumpDiffResExpressionTex(Node* node, FILE* outFile);
 #define  LN_(value)        createFuncNode (LN,  NULL, value)
 
 #define NUM_(value)        createConstNode (value, NULL, NULL)
+
+#define VAR_(value)        createVarNode(value, NULL, NULL)
 
 #define COMP_FUNC(externalFunc, internalFunc)  MUL_(externalFunc, differentiateTree(internalFunc, outFile))  
 
@@ -186,6 +185,8 @@ static Node* diffTg(Node* curNode, FILE* outFile)
     AssertSoft(curNode, NULL);
 
     dumpDiffExpressionTex(curNode, outFile);
+
+    // Node* externalFunc = ... <--- dump this
 
     Node* result = COMP_FUNC(DIV_(NUM_(1),  POW_(COS_(cR), NUM_(2))), cR);
 
@@ -520,10 +521,152 @@ ErrorCode dumpDiffExpressionTex(Node* node, FILE* outFile)
     return OK;
 }
 
+Node* GetE();
 
+Node* GetT();
 
+Node* GetP();
 
+Node* GetId();
 
+Node* GetN();
+
+const char* expression = "5+(9-2)/(10*2)-7";
+
+int curPos = 0;
+
+Node* GetG()
+{
+    AssertSoft(expression, NULL);
+
+    // expression = expr;
+
+    Node* root = GetE();
+
+    return root;
+}
+
+Node* GetE()
+{
+    Node* firstNode = GetT();
+
+    while (expression[curPos] == '+' || expression[curPos] == '-')
+    {
+        char func = expression[curPos];
+
+        curPos++;
+
+        Node* secondNode = GetT();
+
+        switch (func)
+        {
+            case '+':
+                return ADD_(firstNode, secondNode);
+            
+            case '-':
+                return SUB_(firstNode, secondNode);
+
+            default:
+                printf("Unknown function: %d! Position in expression: %d.\n", func, curPos);
+                break;
+        }
+    }
+
+    return firstNode;
+}
+
+Node* GetT()
+{
+    Node* firstNode = GetP();
+
+    while (expression[curPos] == '*' || expression[curPos] == '/' || expression[curPos] == '^')
+    {
+        char func = expression[curPos];
+
+        curPos++;
+
+        Node* secondNode = GetP();
+
+        switch (func)
+        {
+            case '*':
+                return MUL_(firstNode, secondNode);
+            
+            case '/':
+                return DIV_(firstNode, secondNode);
+
+            case '^':
+                return POW_(firstNode, secondNode);
+            
+            default:
+                printf("Unknown function: %d! Position in expression: %d.\n", func, curPos);
+                break;
+        }
+    }
+
+    return firstNode;
+}
+
+Node* GetP()
+{
+    if (expression[curPos] == '(')
+    {
+        curPos++;
+
+        Node* firstNode = GetE();
+
+        // assert for ')'
+
+        curPos++;
+
+        return firstNode;
+    }
+    else if (isdigit(expression[curPos]))
+    {
+        return GetN();
+    }
+    else
+    {
+        return GetId();
+    }
+}
+
+Node* GetId()
+{
+    printf("curpos: %d\n", curPos);
+
+    printf("%d, %c\n", strncmp("sin", &expression[curPos], 3), expression[curPos]);
+
+    if (strncmp("sin", &expression[curPos], 3) == 0 && expression[curPos + 3] == '(')
+    {
+        curPos += 3;
+
+        return SIN_(GetE());
+    }
+    else if (strncmp("cos", &expression[curPos], 3) == 0 && expression[curPos + 3] == '(')
+    {
+        curPos += 3;
+
+        return COS_(GetE());
+    } // TODO: more functions
+    else /* (isalpha(expression[curPos])) */
+    {
+        curPos += 1;
+
+        return VAR_(expression[curPos - 1]);
+    }
+}
+
+Node* GetN()
+{
+    char* endPtr = NULL;
+
+    double value = strtof(&expression[curPos], &endPtr);
+
+    curPos += endPtr - &expression[curPos];
+
+    return NUM_(value);
+}
 
 // TODO: pow function diff
 

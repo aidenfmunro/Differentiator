@@ -49,7 +49,7 @@ struct Node
 {
     NodeElem_t data = {};
 
-    char type       = CONST;
+    char       type       = CONST; // WARNING: CHANGED
 
     Node*      parent;
 

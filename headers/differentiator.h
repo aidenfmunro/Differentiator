@@ -4,13 +4,17 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
-#include "tree.h"
+#include "textfuncs.h"
 #include "utils.h"
+#include "tree.h"
 
 Node* differentiateTree(Node* curNode, FILE* outFile);
 
 ErrorCode DumpTreeTex(Tree* tree);
+
+Node* GetG();
 
 static const char* BeginTexDocument = "\\documentclass[a4paper,12pt]{article}\n"
                                       "\\usepackage{cmap}\n"

@@ -3,23 +3,31 @@
 
 int main(void)
 {
-   Tree tree = {};
+    Tree tree = {};
 
-   ConstructTree(&tree, "expression.txt");
+    /*
 
-   DumpTreeTex(&tree);
+    ConstructTree(&tree, "expression.txt");
 
-   DumpTreeGraph(tree.root);
+    DumpTreeTex(&tree);
 
-   DestroyTree(&tree);
+    DumpTreeGraph(tree.root);
 
-   // Tree tree1 = {};
+    */
 
-   // ConstructTree(&tree1, "expression1.txt");
+    tree.root = GetG();
 
-   // DumpTreeTex(&tree, "ssss");
+    DumpTreeGraph(tree.root);
 
-   // DestroyTree(&tree);
+    DestroyTree(&tree);
+
+    // Tree tree1 = {};
+
+    // ConstructTree(&tree1, "expression1.txt");
+
+    // DumpTreeTex(&tree, "ssss");
+
+    // DestroyTree(&tree);
 
 
     return OK; 
