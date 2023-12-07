@@ -54,7 +54,7 @@ ErrorCode dumpDiffResExpressionTex(Node* node, FILE* outFile);
 
 #define NUM_(value)        createConstNode (value, NULL, NULL)
 
-#define VAR_(value)        createVarNode(value, NULL, NULL)
+#define VAR_(value)        createVarNode (value, NULL, NULL)
 
 #define COMP_FUNC(externalFunc, internalFunc)  MUL_(externalFunc, differentiateTree(internalFunc, outFile))  
 
@@ -233,9 +233,9 @@ static Node* diffPow(Node* curNode, FILE* outFile)
     {
         Node* diffExternalFunc = POW_(cL, NUM_(cR->data.constVal - 1));
 
-        diffExternalFunc = MUL_(NUM_(cR->data.constVal), diffExternalFunc);
+        diffExternalFunc       = MUL_(NUM_(cR->data.constVal), diffExternalFunc);
 
-        result = COMP_FUNC(diffExternalFunc, cL);
+        result                 = COMP_FUNC(diffExternalFunc, cL);
     }
     else // f^g * (g' * ln(f) + g * f' * 1/f)
     {
@@ -243,7 +243,7 @@ static Node* diffPow(Node* curNode, FILE* outFile)
 
         Node* rightSubPart = MUL_(cR, MUL_(dL, DIV_(NUM_(1), cL)));
 
-        result = MUL_(cN, ADD_(leftSubPart, rightSubPart)); 
+        result             = MUL_(cN, ADD_(leftSubPart, rightSubPart)); 
     }
 
     dumpDiffResExpressionTex(result, outFile);
@@ -444,6 +444,8 @@ static ErrorCode _dumpTreeTex(Node* node, FILE* outFile)
             }
             case POW:
             {
+                dumpTex("(")
+
                 DUMP_L_TREE(node);
 
                 dumpTex("^{");
@@ -451,6 +453,8 @@ static ErrorCode _dumpTreeTex(Node* node, FILE* outFile)
                 DUMP_R_TREE(node);
 
                 dumpTex("}");
+
+                dumpTex(")");
 
                 break;
             }
@@ -556,7 +560,7 @@ Node* GetId();
 
 Node* GetN();
 
-const char* expression = "x^x";
+const char* expression = "x^x^x";
 
 int curPos = 0;
 
