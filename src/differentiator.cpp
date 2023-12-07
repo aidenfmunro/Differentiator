@@ -531,7 +531,7 @@ Node* GetId();
 
 Node* GetN();
 
-const char* expression = "5+(9-2)/(10*2)-7";
+const char* expression = "x+(x*x)-8+2";
 
 int curPos = 0;
 
@@ -561,10 +561,12 @@ Node* GetE()
         switch (func)
         {
             case '+':
-                return ADD_(firstNode, secondNode);
+                firstNode = ADD_(firstNode, secondNode);
+                break;
             
             case '-':
-                return SUB_(firstNode, secondNode);
+                firstNode = SUB_(firstNode, secondNode);
+                break;
 
             default:
                 printf("Unknown function: %d! Position in expression: %d.\n", func, curPos);
@@ -590,13 +592,16 @@ Node* GetT()
         switch (func)
         {
             case '*':
-                return MUL_(firstNode, secondNode);
+                firstNode = MUL_(firstNode, secondNode);
+                break;
             
             case '/':
-                return DIV_(firstNode, secondNode);
+                firstNode = DIV_(firstNode, secondNode);
+                break;
 
             case '^':
-                return POW_(firstNode, secondNode);
+                firstNode = POW_(firstNode, secondNode);
+                break;
             
             default:
                 printf("Unknown function: %d! Position in expression: %d.\n", func, curPos);
@@ -609,11 +614,13 @@ Node* GetT()
 
 Node* GetP()
 {
+    Node* firstNode = NULL;
+
     if (expression[curPos] == '(')
     {
         curPos++;
 
-        Node* firstNode = GetE();
+        firstNode = GetE();
 
         // assert for ')'
 
