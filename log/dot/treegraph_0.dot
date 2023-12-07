@@ -18,6 +18,14 @@
 "node7" [shape = "record", label = "{8}", fillcolor = "aqua"]
 "node1" -> "node7"
 "node0" -> "node1"
-"node8" [shape = "record", label = "{2}", fillcolor = "aqua"]
+"node8" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node9" [shape = "record", label = "{2}", fillcolor = "aqua"]
+"node8" -> "node9"
+"node10" [shape = "record", label = "{tg}", fillcolor = "coral"]
+"node11" [shape = "record", label = "{ln}", fillcolor = "coral"]
+"node12" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node11" -> "node12"
+"node10" -> "node11"
+"node8" -> "node10"
 "node0" -> "node8"
   }

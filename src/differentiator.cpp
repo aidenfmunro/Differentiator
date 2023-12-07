@@ -531,7 +531,7 @@ Node* GetId();
 
 Node* GetN();
 
-const char* expression = "x+(x*x)-8+2";
+const char* expression = "x+(x*x)-8+2*tg(ln(x))";
 
 int curPos = 0;
 
@@ -656,11 +656,34 @@ Node* GetId()
 
         return COS_(GetE());
     } // TODO: more functions
-    else /* (isalpha(expression[curPos])) */
+    else if (strncmp("tg", &expression[curPos], 2) == 0 && expression[curPos + 2] == '(')
+    {
+        curPos += 2;
+
+        return TG_(GetE());
+    }
+    else if (strncmp("ctg", &expression[curPos], 3) == 0 && expression[curPos + 2] == '(')
+    {
+        curPos += 3;
+
+        return CTG_(GetE());
+    }
+    else if (strncmp("ln", &expression[curPos], 2) == 0 && expression[curPos + 2] == '(')
+    {
+        curPos += 2;
+
+        return LN_(GetE());
+    }
+    else if (isalpha(expression[curPos]))
     {
         curPos += 1;
 
         return VAR_(expression[curPos - 1]);
+    }
+    else
+    {
+        printf("Unrecognised ID: %c, position: %d\n", expression[curPos], curPos);
+        return NULL;
     }
 }
 
