@@ -2,3 +2,7 @@
 main
 /obj
 *.out
+*.log
+*.aux
+*.gz
+*.fdb_latexmk

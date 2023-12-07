@@ -562,7 +562,7 @@ Node* GetId();
 
 Node* GetN();
 
-const char* expression = "x^x*(x/cos(x))";
+const char* expression = "x*y";
 
 int curPos = 0;
 
