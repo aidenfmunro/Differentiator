@@ -22,9 +22,11 @@ int main(void)
 
     DumpTreeTex(&tree);
 
-    DumpTreeTex(&tree);
+    DumpTreeGraph(tree.root);
 
-    DestroyTree(&tree);
+    // DumpTreeTex(&tree);
+
+    // DestroyTree(&tree);
 
     // Tree tree1 = {};
 
@@ -33,7 +35,6 @@ int main(void)
     // DumpTreeTex(&tree, "ssss");
 
     // DestroyTree(&tree);
-
 
     return OK; 
 }

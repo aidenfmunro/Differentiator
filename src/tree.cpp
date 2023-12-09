@@ -140,6 +140,28 @@ ErrorCode fillConstNode(Node* curNode, double value)
     return OK;
 }
 
+int countMaxDepth(Node* node)
+{
+    if (node == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        int leftDepth  = countMaxDepth(node->left);
+        int rightDepth = countMaxDepth(node->right);
+
+        if (leftDepth > rightDepth)
+        {
+            return leftDepth + 1;
+        }
+        else
+        {
+            return rightDepth + 1;
+        }
+    }    
+}
+
 ErrorCode parseToken(char** buffer, Node* curNode)
 {
     char* end = strpbrk(*buffer, "()");

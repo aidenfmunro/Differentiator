@@ -93,4 +93,6 @@ Node*     createFuncNode    (Function funcName, Node* left, Node* right);
 
 char*     getFuncName       (Function func);
 
-#endif
+int       countMaxDepth     (Node* node);
+
+#endif  

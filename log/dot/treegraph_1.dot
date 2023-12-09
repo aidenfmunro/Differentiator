@@ -1,0 +1,145 @@
+  digraph tree  {
+  node[   shape     = "Mrecord",  style     = "filled",  fillcolor = "aqua",  fontcolor = "#000000",  margin    = "0.075"];
+  rankdir   = "TB";
+
+  label     = "Differentiator Dump";
+"node12" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node13" [shape = "record", label = "{^}", fillcolor = "coral"]
+"node14" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node15" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node14" -> "node15"
+"node16" [shape = "record", label = "{tg}", fillcolor = "coral"]
+"node17" [shape = "record", label = "{+}", fillcolor = "coral"]
+"node18" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node17" -> "node18"
+"node19" [shape = "record", label = "{sin}", fillcolor = "coral"]
+"node20" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node19" -> "node20"
+"node17" -> "node19"
+"node16" -> "node17"
+"node14" -> "node16"
+"node13" -> "node14"
+"node21" [shape = "record", label = "{+}", fillcolor = "coral"]
+"node22" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node21" -> "node22"
+"node23" [shape = "record", label = "{sin}", fillcolor = "coral"]
+"node24" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node23" -> "node24"
+"node21" -> "node23"
+"node13" -> "node21"
+"node12" -> "node13"
+"node25" [shape = "record", label = "{+}", fillcolor = "coral"]
+"node26" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node27" [shape = "record", label = "{+}", fillcolor = "coral"]
+"node28" [shape = "record", label = "{1}", fillcolor = "aqua"]
+"node27" -> "node28"
+"node29" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node30" [shape = "record", label = "{cos}", fillcolor = "coral"]
+"node31" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node30" -> "node31"
+"node29" -> "node30"
+"node32" [shape = "record", label = "{1}", fillcolor = "aqua"]
+"node29" -> "node32"
+"node27" -> "node29"
+"node26" -> "node27"
+"node33" [shape = "record", label = "{ln}", fillcolor = "coral"]
+"node34" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node35" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node34" -> "node35"
+"node36" [shape = "record", label = "{tg}", fillcolor = "coral"]
+"node37" [shape = "record", label = "{+}", fillcolor = "coral"]
+"node38" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node37" -> "node38"
+"node39" [shape = "record", label = "{sin}", fillcolor = "coral"]
+"node40" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node39" -> "node40"
+"node37" -> "node39"
+"node36" -> "node37"
+"node34" -> "node36"
+"node33" -> "node34"
+"node26" -> "node33"
+"node25" -> "node26"
+"node41" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node42" [shape = "record", label = "{+}", fillcolor = "coral"]
+"node43" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node42" -> "node43"
+"node44" [shape = "record", label = "{sin}", fillcolor = "coral"]
+"node45" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node44" -> "node45"
+"node42" -> "node44"
+"node41" -> "node42"
+"node46" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node47" [shape = "record", label = "{+}", fillcolor = "coral"]
+"node48" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node49" [shape = "record", label = "{1}", fillcolor = "aqua"]
+"node48" -> "node49"
+"node50" [shape = "record", label = "{tg}", fillcolor = "coral"]
+"node51" [shape = "record", label = "{+}", fillcolor = "coral"]
+"node52" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node51" -> "node52"
+"node53" [shape = "record", label = "{sin}", fillcolor = "coral"]
+"node54" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node53" -> "node54"
+"node51" -> "node53"
+"node50" -> "node51"
+"node48" -> "node50"
+"node47" -> "node48"
+"node55" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node56" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node55" -> "node56"
+"node57" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node58" [shape = "record", label = "{/}", fillcolor = "coral"]
+"node59" [shape = "record", label = "{1}", fillcolor = "aqua"]
+"node58" -> "node59"
+"node60" [shape = "record", label = "{^}", fillcolor = "coral"]
+"node61" [shape = "record", label = "{cos}", fillcolor = "coral"]
+"node62" [shape = "record", label = "{+}", fillcolor = "coral"]
+"node63" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node62" -> "node63"
+"node64" [shape = "record", label = "{sin}", fillcolor = "coral"]
+"node65" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node64" -> "node65"
+"node62" -> "node64"
+"node61" -> "node62"
+"node60" -> "node61"
+"node66" [shape = "record", label = "{2}", fillcolor = "aqua"]
+"node60" -> "node66"
+"node58" -> "node60"
+"node57" -> "node58"
+"node67" [shape = "record", label = "{+}", fillcolor = "coral"]
+"node68" [shape = "record", label = "{1}", fillcolor = "aqua"]
+"node67" -> "node68"
+"node69" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node70" [shape = "record", label = "{cos}", fillcolor = "coral"]
+"node71" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node70" -> "node71"
+"node69" -> "node70"
+"node72" [shape = "record", label = "{1}", fillcolor = "aqua"]
+"node69" -> "node72"
+"node67" -> "node69"
+"node57" -> "node67"
+"node55" -> "node57"
+"node47" -> "node55"
+"node46" -> "node47"
+"node73" [shape = "record", label = "{/}", fillcolor = "coral"]
+"node74" [shape = "record", label = "{1}", fillcolor = "aqua"]
+"node73" -> "node74"
+"node75" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node76" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node75" -> "node76"
+"node77" [shape = "record", label = "{tg}", fillcolor = "coral"]
+"node78" [shape = "record", label = "{+}", fillcolor = "coral"]
+"node79" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node78" -> "node79"
+"node80" [shape = "record", label = "{sin}", fillcolor = "coral"]
+"node81" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node80" -> "node81"
+"node78" -> "node80"
+"node77" -> "node78"
+"node75" -> "node77"
+"node73" -> "node75"
+"node46" -> "node73"
+"node41" -> "node46"
+"node25" -> "node41"
+"node12" -> "node25"
+  }

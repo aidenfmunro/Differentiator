@@ -32,6 +32,8 @@ ErrorCode DumpTreeTex(Tree* tree)
 
     dumpExpressionTex(tree->root, outFile);
 
+    // dumpTex("Максимальная глубина дерева: %d\n", countMaxDepth(tree->root)); DEBUG INFO
+
     dumpTex(EndTexDocument);
 
 
@@ -316,7 +318,7 @@ ErrorCode dumpPhrase(FILE* outFile)
 
     dumpTex("%s\n", phrases[randLineNum]);
 
-    dumpTex("\\end{center}");
+    dumpTex("\\end{center}\n");
 
     return OK;
 }
