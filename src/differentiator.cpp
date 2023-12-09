@@ -234,3 +234,61 @@ static Node* diffPow(Node* curNode, FILE* outFile)
 
 #undef dR
 #undef dL
+
+#define DATA curNode->data
+
+#define R_DATA curNode->right->data
+#define L_DATA curNode->left->data
+
+#define TYPE curNode->type
+
+#define R_TYPE curNode->right->type
+#define L_TYPE curNode->left->type
+
+#define R_ curNode->right
+#define L_ curNode->left
+
+bool OptimizeMultiplication (Tree* tree, Node* curNode)
+{
+    AssertSoft(tree,    NULL);
+    AssertSoft(curNode, NULL);
+
+    if (TYPE == FUNC && (DATA.func == MUL || DATA.func == DIV))
+    {
+        if ((R_TYPE == CONST && R_DATA.constVal == 0) && (L_TYPE == CONST && L_DATA.constVal == 0))
+        {
+            TYPE = CONST;
+            DATA.constVal = 0;
+
+            deleteNode(L_);
+            deleteNode(R_);
+
+            return true;
+        }
+    }
+}
+
+bool OptimizeAddition (Tree* tree, Node* curNode)
+{
+    AssertSoft(tree,    NULL);
+    AssertSoft(curNode, NULL);
+
+    if (TYPE == CONST && (DATA.func == ADD || DATA.func == SUB))
+    {
+        if (countMaxDepth(curNode) == 1)
+        {
+            TYPE = CONST;
+
+            if (DATA.func == ADD)
+            {
+                DATA.constVal = L_DATA.constVal + R_DATA.constVal;
+            }
+            else if (DATA.func == SUB)
+            {
+                DATA.constVal = L_DATA.constVal - R_DATA.constVal;
+            }
+
+            return true;
+        }
+    }
+}
