@@ -1,5 +1,6 @@
-#include <stdio.h>
+#include "recursivedescent.h"
 #include "differentiator.h"
+#include "latexdump.h"
 
 int main(void)
 {
@@ -18,6 +19,8 @@ int main(void)
     tree.root = GetG();
 
     DumpTreeGraph(tree.root);
+
+    DumpTreeTex(&tree);
 
     DumpTreeTex(&tree);
 
