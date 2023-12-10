@@ -162,6 +162,26 @@ int countMaxDepth(Node* node)
     }    
 }
 
+bool findVar(Node* node)
+{
+    if (node == NULL)
+    {
+        return false;
+    }
+
+    if (node->type == VAR)
+    {
+        return true;
+    }
+
+    if (findVar(node->left) || findVar(node->right))
+    {
+        return true;
+    }
+
+    return false;
+}
+
 ErrorCode parseToken(char** buffer, Node* curNode)
 {
     char* end = strpbrk(*buffer, "()");

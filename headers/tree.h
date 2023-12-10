@@ -95,4 +95,6 @@ char*     getFuncName       (Function func);
 
 int       countMaxDepth     (Node* node);
 
+bool      findVar           (Node* node);
+
 #endif  

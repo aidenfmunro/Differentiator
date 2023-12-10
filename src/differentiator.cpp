@@ -248,7 +248,7 @@ static Node* diffPow(Node* curNode, FILE* outFile)
 #define R_ curNode->right
 #define L_ curNode->left
 
-bool OptimizeMultiplication (Tree* tree, Node* curNode)
+bool OptimiseMultiplication (Tree* tree, Node* curNode)
 {
     AssertSoft(tree,    NULL);
     AssertSoft(curNode, NULL);
@@ -268,7 +268,7 @@ bool OptimizeMultiplication (Tree* tree, Node* curNode)
     }
 }
 
-bool OptimizeAddition (Tree* tree, Node* curNode)
+bool OptimiseAddition (Tree* tree, Node* curNode)
 {
     AssertSoft(tree,    NULL);
     AssertSoft(curNode, NULL);
