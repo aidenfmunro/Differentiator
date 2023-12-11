@@ -35,8 +35,6 @@ ErrorCode DumpTreeTex(Tree* tree)
 
     printf("%d\n", Optimise(tree->root));
 
-    printf("%d\n", tree->root->data.func);
-
     dumpExpressionTex(tree->root, outFile);
 
     dumpTex(EndTexDocument);

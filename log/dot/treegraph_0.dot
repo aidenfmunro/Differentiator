@@ -3,11 +3,13 @@
   rankdir   = "TB";
 
   label     = "Differentiator Dump";
-"node0" [shape = "record", label = "{*}", fillcolor = "coral"]
-"node1" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node0" [shape = "record", label = "{^}", fillcolor = "coral"]
+"node1" [shape = "record", label = "{cos}", fillcolor = "coral"]
+"node2" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node1" -> "node2"
 "node0" -> "node1"
-"node2" [shape = "record", label = "{sin}", fillcolor = "coral"]
-"node3" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
-"node2" -> "node3"
-"node0" -> "node2"
+"node3" [shape = "record", label = "{tg}", fillcolor = "coral"]
+"node4" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
+"node3" -> "node4"
+"node0" -> "node3"
   }

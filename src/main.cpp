@@ -6,7 +6,7 @@ int main(void)
 {
     Tree tree = {};
 
-    tree.root = GetG("x*sin(x)");
+    tree.root = GetG("(cos(x))^tg(x)");
 
     Tree difftree = {};
 

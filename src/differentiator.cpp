@@ -293,7 +293,7 @@ bool OptimiseMulDiv(Node* curNode) // TODO: func in to header
             return true;
         }
 
-        else if (R_TYPE == CONST && R_DATA.constVal == 1 && countMaxDepth(R_) == 1)
+        if (R_TYPE == CONST && R_DATA.constVal == 1 && countMaxDepth(R_) == 1)
         {
             TYPE = L_TYPE;
             
@@ -322,14 +322,27 @@ bool OptimiseMulDiv(Node* curNode) // TODO: func in to header
                     break;
             }
 
-            free(R_);
+            Node* oldRightNode = curNode->right;
+            Node* oldLeftNode  = curNode->left;
 
-            connectNode(curNode, L_->left, L_->right);
+            curNode->left = oldLeftNode->left;
+            curNode->right = oldLeftNode->right;
 
-            free(L_);
+            free (oldRightNode);
+            free (oldLeftNode);
+
+            return true;
+
+            //deleteNode(R_);
+//
+            //connectNode(curNode, L_->left, L_->right);
+//
+            //free(L_);
+
+            return true;
         }
 
-        else if (L_TYPE == CONST && L_DATA.constVal == 1 && countMaxDepth(L_) == 1)
+        else if (L_TYPE == CONST && L_DATA.constVal == 1 && countMaxDepth(L_) == 1 && DATA.func != DIV)
         {
             TYPE = R_TYPE;
             
@@ -358,14 +371,24 @@ bool OptimiseMulDiv(Node* curNode) // TODO: func in to header
                     break;
             }
 
-            free(L_);
+            Node* oldRightNode = curNode->right;
+            Node* oldLeftNode  = curNode->left;
 
-            connectNode(curNode, R_->left, R_->right);
+            curNode->left = oldRightNode->left;
+            curNode->right = oldRightNode->right;
 
-            free(R_);
+            free (oldRightNode);
+            free (oldLeftNode);
+
+            //deleteNode(L_);
+//
+            //connectNode(curNode, R_->left, R_->right);
+//
+            //free(R_);
+            
+
+            return true;
         }
-
-
     }
 
     return false;
