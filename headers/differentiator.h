@@ -12,4 +12,8 @@
 
 Node* differentiateTree(Node* curNode, FILE* outFile);
 
+size_t Optimise(Node* curNode);
+
+
+
 #endif

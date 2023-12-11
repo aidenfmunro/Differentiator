@@ -248,14 +248,38 @@ static Node* diffPow(Node* curNode, FILE* outFile)
 #define R_ curNode->right
 #define L_ curNode->left
 
-bool OptimiseMulDiv (Tree* tree, Node* curNode) // TODO: func in to header
+bool OptimiseAddSub (Node* curNode);
+bool OptimiseMulDiv (Node* curNode);
+
+size_t Optimise(Node* curNode)
 {
-    AssertSoft(tree,    NULL);
+    if (curNode == NULL)
+        return 0;
+
+    size_t count = 0;
+
+    count += Optimise(curNode->left);
+    count += Optimise(curNode->right);
+
+    if (OptimiseAddSub(curNode))
+        count++;
+
+    if (OptimiseMulDiv(curNode))
+        count++;
+
+    return count;
+}   
+
+bool OptimiseMulDiv(Node* curNode) // TODO: func in to header
+{
     AssertSoft(curNode, NULL);
+
+    if (R_ == NULL || L_ == NULL)
+        return 0;
 
     if (TYPE == FUNC && (DATA.func == MUL || DATA.func == DIV))
     {
-        if ((R_TYPE == CONST && R_DATA.constVal == 0) && (L_TYPE == CONST && L_DATA.constVal == 0))
+        if ((R_TYPE == CONST && R_DATA.constVal == 0) || (L_TYPE == CONST && L_DATA.constVal == 0))
         {
             TYPE = CONST;
             DATA.constVal = 0;
@@ -263,20 +287,96 @@ bool OptimiseMulDiv (Tree* tree, Node* curNode) // TODO: func in to header
             deleteNode(L_);
             deleteNode(R_);
 
+            L_ = NULL;
+            R_ = NULL;
+
             return true;
         }
 
-        if (R_TYPE == CONST && R_DATA.constVal == 1)
+        else if (R_TYPE == CONST && R_DATA.constVal == 1 && countMaxDepth(R_) == 1)
         {
+            TYPE = L_TYPE;
+            
+            switch (TYPE)
+            {
+                case CONST:
+                {
+                    DATA.constVal = L_DATA.constVal;
+                    break;
+                }
 
+                case FUNC:
+                {
+                    DATA.func = L_DATA.func;
+                    break;
+                }
+
+                case VAR:
+                {
+                    DATA.var = L_DATA.var;
+                    break;
+                }
+
+                default:
+                    printf("Unknown type: %d!\n", TYPE);
+                    break;
+            }
+
+            free(R_);
+
+            connectNode(curNode, L_->left, L_->right);
+
+            free(L_);
         }
+
+        else if (L_TYPE == CONST && L_DATA.constVal == 1 && countMaxDepth(L_) == 1)
+        {
+            TYPE = R_TYPE;
+            
+            switch (TYPE)
+            {
+                case CONST:
+                {
+                    DATA.constVal = R_DATA.constVal;
+                    break;
+                }
+
+                case FUNC:
+                {
+                    DATA.func = R_DATA.func;
+                    break;
+                }
+
+                case VAR:
+                {
+                    DATA.var = R_DATA.var;
+                    break;
+                }
+
+                default:
+                    printf("Unknown type: %d!\n", TYPE);
+                    break;
+            }
+
+            free(L_);
+
+            connectNode(curNode, R_->left, R_->right);
+
+            free(R_);
+        }
+
+
     }
+
+    return false;
 }
 
-bool OptimiseAddSub (Tree* tree, Node* curNode)
+bool OptimiseAddSub(Node* curNode)
 {
-    AssertSoft(tree,    NULL);
     AssertSoft(curNode, NULL);
+
+    if (R_ == NULL || L_ == NULL)
+        return false;
 
     if (TYPE == CONST && (DATA.func == ADD || DATA.func == SUB))
     {
@@ -296,4 +396,6 @@ bool OptimiseAddSub (Tree* tree, Node* curNode)
             return true;
         }
     }
+
+    return false;
 }

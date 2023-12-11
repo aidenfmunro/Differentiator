@@ -27,6 +27,8 @@ Node* GetG(const char* expression)
 
 Node* GetE(const char* expression, size_t* curPos)
 {
+    AssertSoft(expression, NULL);
+
     Node* firstNode = GetT(expression, curPos);
 
     while (curSym == '+' || curSym == '-')
@@ -58,6 +60,8 @@ Node* GetE(const char* expression, size_t* curPos)
 
 Node* GetT(const char* expression, size_t* curPos)
 {
+    AssertSoft(expression, NULL);
+
     Node* firstNode = GetP(expression, curPos);
 
     while (curSym == '*' || curSym == '/' || curSym == '^')
@@ -93,6 +97,8 @@ Node* GetT(const char* expression, size_t* curPos)
 
 Node* GetP(const char* expression, size_t* curPos)
 {
+    AssertSoft(expression, NULL);
+
     Node* firstNode = NULL;
 
     if (curSym == '(')
@@ -121,35 +127,33 @@ Node* GetP(const char* expression, size_t* curPos)
 
 Node* GetId(const char* expression, size_t* curPos)
 {
-    printf("curpos: %d\n", *curPos);
+    AssertSoft(expression, NULL);
 
-    printf("%d, %c\n", strncmp("sin", &curSym, 3), curSym);
-
-    if      (strcmp("sin", &curSym) == 0 && expression[*curPos + SIZEOF_STR("sin")] == '(')
+    if      (strncmp("sin", &curSym, SIZEOF_STR("sin")) == 0 && expression[*curPos + SIZEOF_STR("sin")] == '(')
     {
         *curPos += SIZEOF_STR("sin");
 
         return SIN_(GetE(expression, curPos));
     }
-    else if (strcmp("cos", &curSym) == 0 && expression[*curPos + SIZEOF_STR("cos")] == '(')
+    else if (strncmp("cos", &curSym, SIZEOF_STR("cos")) == 0 && expression[*curPos + SIZEOF_STR("cos")] == '(')
     {
         *curPos += SIZEOF_STR("cos");
 
         return COS_(GetE(expression, curPos));
     }
-    else if (strcmp("tg", &curSym) == 0 && expression[*curPos + SIZEOF_STR("tg")] == '(')
+    else if (strncmp("tg", &curSym, SIZEOF_STR("tg")) == 0 && expression[*curPos + SIZEOF_STR("tg")] == '(')
     {
         *curPos += SIZEOF_STR("tg");
 
         return TG_(GetE(expression, curPos));
     }
-    else if (strcmp("ctg", &curSym) == 0 && expression[*curPos + SIZEOF_STR("ctg")] == '(')
+    else if (strncmp("ctg", &curSym, SIZEOF_STR("ctg")) == 0 && expression[*curPos + SIZEOF_STR("ctg")] == '(')
     {
         *curPos += SIZEOF_STR("ctg");
 
         return CTG_(GetE(expression, curPos));
     }
-    else if (strcmp("ln", &curSym) == 0 && expression[*curPos + SIZEOF_STR("ln")] == '(') // check for '(' inside
+    else if (strncmp("ln", &curSym, SIZEOF_STR("ln")) == 0 && expression[*curPos + SIZEOF_STR("ln")] == '(') // check for '(' inside
     {
         *curPos += SIZEOF_STR("ln");
 

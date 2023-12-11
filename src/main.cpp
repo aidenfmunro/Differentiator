@@ -6,35 +6,17 @@ int main(void)
 {
     Tree tree = {};
 
-    /*
+    tree.root = GetG("x*sin(x)");
 
-    ConstructTree(&tree, "expression.txt");
+    Tree difftree = {};
 
-    DumpTreeTex(&tree);
+    difftree.root = copyNode(tree.root);
 
-    DumpTreeGraph(tree.root);
+    DumpTreeTex(&difftree);
 
-    */
+    // printf("%p\n", tree.root);
 
-    tree.root = GetG("x^2");
-
-    DumpTreeGraph(tree.root);
-
-    DumpTreeTex(&tree);
-
-    DumpTreeGraph(tree.root);
-
-    // DumpTreeTex(&tree);
-
-    // DestroyTree(&tree);
-
-    // Tree tree1 = {};
-
-    // ConstructTree(&tree1, "expression1.txt");
-
-    // DumpTreeTex(&tree, "ssss");
-
-    // DestroyTree(&tree);
+    deleteNode(tree.root);
 
     return OK; 
 }

@@ -24,20 +24,28 @@ ErrorCode DumpTreeTex(Tree* tree)
     myOpen(command0, "w", outFile);
 
 
+    DumpTreeGraph(tree->root);
+
+
     dumpTex(BeginTexDocument);
 
     dumpExpressionTex(tree->root, outFile);
 
     tree->root = differentiateTree(tree->root, outFile);
 
-    dumpExpressionTex(tree->root, outFile);
+    printf("%d\n", Optimise(tree->root));
 
-    // dumpTex("Максимальная глубина дерева: %d\n", countMaxDepth(tree->root)); DEBUG INFO
+    printf("%d\n", tree->root->data.func);
+
+    dumpExpressionTex(tree->root, outFile);
 
     dumpTex(EndTexDocument);
 
 
     myClose(outFile);
+
+
+    DumpTreeGraph(tree->root);
 
 
     char command1[MAX_COMMAND_LENGTH] = {};
@@ -46,6 +54,7 @@ ErrorCode DumpTreeTex(Tree* tree)
 
     system(command1);
 
+    deleteNode(tree->root);
 
     char command2[MAX_COMMAND_LENGTH] = {};
 
