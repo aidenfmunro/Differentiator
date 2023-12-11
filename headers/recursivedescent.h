@@ -8,6 +8,6 @@
 #include "tree.h"
 #include "utils.h"
 
-Node* GetG();
+Node* GetG(const char* expression);
 
 #endif

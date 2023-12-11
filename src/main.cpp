@@ -16,7 +16,7 @@ int main(void)
 
     */
 
-    tree.root = GetG();
+    tree.root = GetG("x^2");
 
     DumpTreeGraph(tree.root);
 

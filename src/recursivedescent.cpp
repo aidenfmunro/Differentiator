@@ -2,42 +2,40 @@
 
 #include "dsl.h"
 
-Node* GetE();
+Node* GetE(const char* expression, size_t* curPos);
 
-Node* GetT();
+Node* GetT(const char* expression, size_t* curPos);
 
-Node* GetP();
+Node* GetP(const char* expression, size_t* curPos);
 
-Node* GetId();
+Node* GetId(const char* expression, size_t* curPos);
 
-Node* GetN();
+Node* GetN(const char* expression, size_t* curPos);
 
-const char* expression = "(x*tg(x)+sin(x))^(x+sin(x))";
+#define curSym expression[*curPos]
 
-int curPos = 0;
-
-Node* GetG()
+Node* GetG(const char* expression)
 {
     AssertSoft(expression, NULL);
 
-    // expression = expr;
+    size_t curPos = 0;
 
-    Node* root = GetE();
+    Node* root = GetE(expression, &curPos);
 
     return root;
 }
 
-Node* GetE()
+Node* GetE(const char* expression, size_t* curPos)
 {
-    Node* firstNode = GetT();
+    Node* firstNode = GetT(expression, curPos);
 
-    while (expression[curPos] == '+' || expression[curPos] == '-')
+    while (curSym == '+' || curSym == '-')
     {
-        char func = expression[curPos];
+        char func = curSym;
 
-        curPos++;
+        (*curPos)++;
 
-        Node* secondNode = GetT();
+        Node* secondNode = GetT(expression, curPos);
 
         switch (func)
         {
@@ -50,7 +48,7 @@ Node* GetE()
                 break;
 
             default:
-                printf("Unknown function: %d! Position in expression: %d.\n", func, curPos);
+                printf("Unknown function: %d! Position in expression: %d.\n", func, *curPos);
                 break;
         }
     }
@@ -58,17 +56,17 @@ Node* GetE()
     return firstNode;
 }
 
-Node* GetT()
+Node* GetT(const char* expression, size_t* curPos)
 {
-    Node* firstNode = GetP();
+    Node* firstNode = GetP(expression, curPos);
 
-    while (expression[curPos] == '*' || expression[curPos] == '/' || expression[curPos] == '^')
+    while (curSym == '*' || curSym == '/' || curSym == '^')
     {
-        char func = expression[curPos];
+        char func = curSym;
 
-        curPos++;
+        (*curPos)++;
 
-        Node* secondNode = GetP();
+        Node* secondNode = GetP(expression, curPos);
 
         switch (func)
         {
@@ -93,94 +91,94 @@ Node* GetT()
     return firstNode;
 }
 
-Node* GetP()
+Node* GetP(const char* expression, size_t* curPos)
 {
     Node* firstNode = NULL;
 
-    if (expression[curPos] == '(')
+    if (curSym == '(')
     {
-        curPos++;
+        (*curPos)++;
 
-        firstNode = GetE();
+        firstNode = GetE(expression, curPos);
 
-        AssertSoft(expression[curPos] == ')', NULL); // TODO: print error message for language
+        AssertSoft(curSym == ')', NULL); // TODO: print error message for language
 
-        curPos++;
+        (*curPos)++;
 
         return firstNode;
     }
-    else if (isdigit(expression[curPos]))
+    else if (isdigit(curSym))
     {
-        return GetN();
+        return GetN(expression, curPos);
     }
     else
     {
-        return GetId();
+        return GetId(expression, curPos);
     }
 }
 
-Node* GetId()
+#define SIZEOF_STR(str) sizeof(str) - 1
+
+Node* GetId(const char* expression, size_t* curPos)
 {
-    printf("curpos: %d\n", curPos);
+    printf("curpos: %d\n", *curPos);
 
-    printf("%d, %c\n", strncmp("sin", &expression[curPos], 3), expression[curPos]);
+    printf("%d, %c\n", strncmp("sin", &curSym, 3), curSym);
 
-    if (strncmp("sin", &expression[curPos], 3) == 0 && expression[curPos + 3] == '(')
+    if      (strcmp("sin", &curSym) == 0 && expression[*curPos + SIZEOF_STR("sin")] == '(')
     {
-        curPos += 3;
+        *curPos += SIZEOF_STR("sin");
 
-        return SIN_(GetE());
+        return SIN_(GetE(expression, curPos));
     }
-    else if (strncmp("cos", &expression[curPos], 3) == 0 && expression[curPos + 3] == '(')
+    else if (strcmp("cos", &curSym) == 0 && expression[*curPos + SIZEOF_STR("cos")] == '(')
     {
-        curPos += 3;
+        *curPos += SIZEOF_STR("cos");
 
-        return COS_(GetE());
-    } // TODO: more functions
-    else if (strncmp("tg", &expression[curPos], 2) == 0 && expression[curPos + 2] == '(')
-    {
-        curPos += 2;
-
-        return TG_(GetE());
+        return COS_(GetE(expression, curPos));
     }
-    else if (strncmp("ctg", &expression[curPos], sizeof("ctg") - 1) == 0 && expression[curPos + sizeof("ctg") - 1] == '(')
+    else if (strcmp("tg", &curSym) == 0 && expression[*curPos + SIZEOF_STR("tg")] == '(')
     {
-        curPos += 3;
+        *curPos += SIZEOF_STR("tg");
 
-        return CTG_(GetE());
+        return TG_(GetE(expression, curPos));
     }
-    else if (strncmp("ln", &expression[curPos], 2) == 0 && expression[curPos + 2] == '(') // check for '(' inside
+    else if (strcmp("ctg", &curSym) == 0 && expression[*curPos + SIZEOF_STR("ctg")] == '(')
     {
-        curPos += 2;
+        *curPos += SIZEOF_STR("ctg");
 
-        return LN_(GetE());
+        return CTG_(GetE(expression, curPos));
     }
-    else if (isalpha(expression[curPos]))
+    else if (strcmp("ln", &curSym) == 0 && expression[*curPos + SIZEOF_STR("ln")] == '(') // check for '(' inside
     {
-        curPos += 1;
+        *curPos += SIZEOF_STR("ln");
 
-        return VAR_(expression[curPos - 1]);
+        return LN_(GetE(expression, curPos));
+    }
+    else if (isalpha(curSym))
+    {
+        *curPos += 1;
+
+        return VAR_(expression[*curPos - 1]);
     }
     else
     {
-        printf("Unrecognised ID: %c, position: %d\n", expression[curPos], curPos);
+        printf("Unrecognised ID: %c, position: %d\n", curSym, *curPos);
         return NULL;
     }
 }
 
-Node* GetN()
+Node* GetN(const char* expression, size_t* curPos)
 {
     char* endPtr = NULL;
 
-    double value = strtof(&expression[curPos], &endPtr);
+    double value = strtof(&curSym, &endPtr);
 
-    curPos += endPtr - &expression[curPos];
+    *curPos += endPtr - &curSym;
 
     return NUM_(value);
 }
 
 // TODO: don't forget other functions too :P
-
-// TODO: написать рекурсивный спуск
 
 // TODO: поддержка числа pi и e

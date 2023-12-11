@@ -205,7 +205,7 @@ static Node* diffPow(Node* curNode, FILE* outFile)
 
     dumpExpressionTex(curNode, NULL);
 
-    if (curNode->right->type == CONST)
+    if (curNode->right->type == CONST && findVar(curNode->right) == false)
     {
         Node* diffExternalFunc = POW_(cL, NUM_(cR->data.constVal - 1));
 
@@ -248,7 +248,7 @@ static Node* diffPow(Node* curNode, FILE* outFile)
 #define R_ curNode->right
 #define L_ curNode->left
 
-bool OptimiseMultiplication (Tree* tree, Node* curNode)
+bool OptimiseMulDiv (Tree* tree, Node* curNode) // TODO: func in to header
 {
     AssertSoft(tree,    NULL);
     AssertSoft(curNode, NULL);
@@ -265,10 +265,15 @@ bool OptimiseMultiplication (Tree* tree, Node* curNode)
 
             return true;
         }
+
+        if (R_TYPE == CONST && R_DATA.constVal == 1)
+        {
+
+        }
     }
 }
 
-bool OptimiseAddition (Tree* tree, Node* curNode)
+bool OptimiseAddSub (Tree* tree, Node* curNode)
 {
     AssertSoft(tree,    NULL);
     AssertSoft(curNode, NULL);
