@@ -1,3 +1,5 @@
+#include <time.h>
+
 #include "latexdump.h"
 
 static ErrorCode _dumpTreeTex(Node* node, FILE* outFile);
@@ -10,6 +12,8 @@ const int MAX_COMMAND_LENGTH  = 256;
 
 ErrorCode DumpTreeTex(Tree* tree)
 {
+    srand(time(NULL));
+
     static int TEX_DUMP_NUM = 0;
 
     char filename[MAX_FILENAME_LENGTH] = {};
@@ -205,7 +209,7 @@ static ErrorCode _dumpTreeTex(Node* node, FILE* outFile)
             }
             case POW:
             {
-                dumpTex("(")
+                // dumpTex("(")
 
                 DUMP_L_TREE(node);
 
@@ -215,7 +219,7 @@ static ErrorCode _dumpTreeTex(Node* node, FILE* outFile)
 
                 dumpTex("}");
 
-                dumpTex(")");
+                // dumpTex(")");
 
                 break;
             }

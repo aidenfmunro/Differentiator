@@ -270,6 +270,8 @@ size_t Optimise(Node* curNode)
     return count;
 }   
 
+// TODO: while (Optimise(...) != 0) ...
+
 bool OptimiseMulDiv(Node* curNode) // TODO: func in to header
 {
     AssertSoft(curNode, NULL);
@@ -328,16 +330,8 @@ bool OptimiseMulDiv(Node* curNode) // TODO: func in to header
             curNode->left = oldLeftNode->left;
             curNode->right = oldLeftNode->right;
 
-            free (oldRightNode);
-            free (oldLeftNode);
-
-            return true;
-
-            //deleteNode(R_);
-//
-            //connectNode(curNode, L_->left, L_->right);
-//
-            //free(L_);
+            free(oldRightNode);
+            free(oldLeftNode);
 
             return true;
         }
@@ -380,13 +374,6 @@ bool OptimiseMulDiv(Node* curNode) // TODO: func in to header
             free (oldRightNode);
             free (oldLeftNode);
 
-            //deleteNode(L_);
-//
-            //connectNode(curNode, R_->left, R_->right);
-//
-            //free(R_);
-            
-
             return true;
         }
     }
@@ -401,9 +388,9 @@ bool OptimiseAddSub(Node* curNode)
     if (R_ == NULL || L_ == NULL)
         return false;
 
-    if (TYPE == CONST && (DATA.func == ADD || DATA.func == SUB))
+    if (TYPE == FUNC && (DATA.func == ADD || DATA.func == SUB))
     {
-        if (countMaxDepth(curNode) == 1)
+        if (countMaxDepth(curNode) == 2 && R_TYPE == CONST && L_TYPE == CONST)
         {
             TYPE = CONST;
 
@@ -415,6 +402,8 @@ bool OptimiseAddSub(Node* curNode)
             {
                 DATA.constVal = L_DATA.constVal - R_DATA.constVal;
             }
+
+            // free up the node?
 
             return true;
         }

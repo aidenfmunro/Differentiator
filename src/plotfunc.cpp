@@ -14,11 +14,19 @@ const int TIME_TO_SEE = 30;
 
 #define pipePlot(...) fprintf(outFile, __VA_ARGS__)
 
-ErrorCode DumpPlot(const char* equation)
+ErrorCode DumpPlot()
 {
-    FILE* outFile = popen("gnuplot", "w");
+    char line[256] = {};
 
-    pipePlot("plot %s\n", equation);
+    FILE* inFile = fopen("equation.txt", "r");
+
+    fgets(line, sizeof(line), inFile);
+
+    FILE* outFile = popen("gnuplot", "w");
+    
+    pipePlot("plot %s\n", line);
+
+    fclose(inFile);
 
     fflush(outFile);
 

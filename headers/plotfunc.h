@@ -7,6 +7,6 @@
 
 #include "errors.h"
 
-ErrorCode DumpPlot(const char* equation);
+ErrorCode DumpPlot();
 
 #endif

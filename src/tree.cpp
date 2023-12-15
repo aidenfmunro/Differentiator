@@ -436,18 +436,43 @@ static ErrorCode _dumpTreeTxt(Node* node, FILE* outFile) // TODO: create tree wi
 
     if (node == NULL)
     {
-        dumpText("nil ");
+        // dumpText("(");
 
         return OK;
     }
 
+    dumpText("(");
+
     _dumpTreeTxt(node->left, outFile);
 
-    dumpText("("SPECIFIER" ", node->data); 
+    switch(node->type)
+    {
+        case CONST:
+        {
+            dumpText("%lg", node->data.constVal);
+            break;
+        }
 
+        case FUNC:
+        {
+            dumpText("%s", getFuncName(node->data.func)); 
+            break;
+        }
+
+        case VAR:
+        {
+            dumpText("%c", node->data.var);
+            break;
+        }
+
+        default:
+            printf("Unknown type: %d!\n", node->type);
+            break;
+    }
+ 
     _dumpTreeTxt(node->right, outFile);
 
-    dumpText(") ");
+    dumpText(")");
 
     return OK;
 }
@@ -610,7 +635,7 @@ char* getFuncName(Function func)
             return "ln";
         
         case POW:
-            return "^";
+            return "**";
 
         default:
             return "UNKNOWN";

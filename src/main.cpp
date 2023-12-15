@@ -1,22 +1,31 @@
 #include "recursivedescent.h"
 #include "differentiator.h"
 #include "latexdump.h"
+#include "plotfunc.h"
 
 int main(void)
 {
     Tree tree = {};
 
-    tree.root = GetG("(cos(x))^tg(x)");
+    tree.root = GetG("cos(x^(x+2*x+1))");
 
     Tree difftree = {};
 
     difftree.root = copyNode(tree.root);
 
-    DumpTreeTex(&difftree);
+    DumpTreeTxt(&difftree, "equation.txt");
 
-    // printf("%p\n", tree.root);
+    DumpTreeTex(&difftree);
 
     deleteNode(tree.root);
 
+    DumpPlot();
+
     return OK; 
 }
+
+// TODO: распечатка функции для графиков
+
+// TODO: вычисление выражений
+
+// TODO: ...
