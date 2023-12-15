@@ -7,19 +7,21 @@ int main(void)
 {
     Tree tree = {};
 
-    tree.root = GetG("cos(x^(x+2*x+1))");
+    tree.root = GetG("cos(15*x+7)");
 
-    Tree difftree = {};
+    // difftree.root = copyNode(tree.root);
 
-    difftree.root = copyNode(tree.root);
+   //  DumpTreeTxt(&difftree, "equation.txt");
+    
+    printf("%p\n", tree.root);
 
-    DumpTreeTxt(&difftree, "equation.txt");
+    DumpTreeTex(&tree);
 
-    DumpTreeTex(&difftree);
+    // printf("%p\n", tree.root);
 
     deleteNode(tree.root);
 
-    DumpPlot();
+    // DumpPlot();
 
     return OK; 
 }

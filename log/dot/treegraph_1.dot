@@ -3,93 +3,31 @@
   rankdir   = "TB";
 
   label     = "Differentiator Dump";
-"node10" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node6" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node7" [shape = "record", label = "{*}", fillcolor = "coral"]
+"node8" [shape = "record", label = "{-1}", fillcolor = "aqua"]
+"node7" -> "node8"
+"node9" [shape = "record", label = "{sin}", fillcolor = "coral"]
+"node10" [shape = "record", label = "{+}", fillcolor = "coral"]
 "node11" [shape = "record", label = "{*}", fillcolor = "coral"]
-"node12" [shape = "record", label = "{-1}", fillcolor = "aqua"]
+"node12" [shape = "record", label = "{15}", fillcolor = "aqua"]
 "node11" -> "node12"
-"node13" [shape = "record", label = "{sin}", fillcolor = "coral"]
-"node14" [shape = "record", label = "{**}", fillcolor = "coral"]
-"node15" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
-"node14" -> "node15"
-"node16" [shape = "record", label = "{+}", fillcolor = "coral"]
-"node17" [shape = "record", label = "{+}", fillcolor = "coral"]
-"node18" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
-"node17" -> "node18"
-"node19" [shape = "record", label = "{*}", fillcolor = "coral"]
-"node20" [shape = "record", label = "{2}", fillcolor = "aqua"]
-"node19" -> "node20"
-"node21" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
-"node19" -> "node21"
-"node17" -> "node19"
-"node16" -> "node17"
-"node22" [shape = "record", label = "{1}", fillcolor = "aqua"]
-"node16" -> "node22"
-"node14" -> "node16"
-"node13" -> "node14"
+"node13" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
 "node11" -> "node13"
 "node10" -> "node11"
-"node23" [shape = "record", label = "{*}", fillcolor = "coral"]
-"node24" [shape = "record", label = "{**}", fillcolor = "coral"]
-"node25" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
-"node24" -> "node25"
-"node26" [shape = "record", label = "{+}", fillcolor = "coral"]
-"node27" [shape = "record", label = "{+}", fillcolor = "coral"]
-"node28" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
-"node27" -> "node28"
-"node29" [shape = "record", label = "{*}", fillcolor = "coral"]
-"node30" [shape = "record", label = "{2}", fillcolor = "aqua"]
-"node29" -> "node30"
-"node31" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
-"node29" -> "node31"
-"node27" -> "node29"
-"node26" -> "node27"
-"node32" [shape = "record", label = "{1}", fillcolor = "aqua"]
-"node26" -> "node32"
-"node24" -> "node26"
-"node23" -> "node24"
-"node33" [shape = "record", label = "{+}", fillcolor = "coral"]
-"node34" [shape = "record", label = "{*}", fillcolor = "coral"]
-"node35" [shape = "record", label = "{+}", fillcolor = "coral"]
-"node36" [shape = "record", label = "{+}", fillcolor = "coral"]
-"node37" [shape = "record", label = "{1}", fillcolor = "aqua"]
-"node36" -> "node37"
-"node38" [shape = "record", label = "{2}", fillcolor = "aqua"]
-"node39" [shape = "record", label = "{0}", fillcolor = "aqua"]
-"node38" -> "node39"
-"node40" [shape = "record", label = "{2}", fillcolor = "aqua"]
-"node38" -> "node40"
-"node36" -> "node38"
-"node35" -> "node36"
-"node41" [shape = "record", label = "{0}", fillcolor = "aqua"]
-"node35" -> "node41"
-"node34" -> "node35"
-"node42" [shape = "record", label = "{ln}", fillcolor = "coral"]
-"node43" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
-"node42" -> "node43"
-"node34" -> "node42"
-"node33" -> "node34"
-"node44" [shape = "record", label = "{*}", fillcolor = "coral"]
-"node45" [shape = "record", label = "{+}", fillcolor = "coral"]
-"node46" [shape = "record", label = "{+}", fillcolor = "coral"]
-"node47" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
-"node46" -> "node47"
-"node48" [shape = "record", label = "{*}", fillcolor = "coral"]
-"node49" [shape = "record", label = "{2}", fillcolor = "aqua"]
-"node48" -> "node49"
-"node50" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
-"node48" -> "node50"
-"node46" -> "node48"
-"node45" -> "node46"
-"node51" [shape = "record", label = "{1}", fillcolor = "aqua"]
-"node45" -> "node51"
-"node44" -> "node45"
-"node52" [shape = "record", label = "{/}", fillcolor = "coral"]
-"node53" [shape = "record", label = "{1}", fillcolor = "aqua"]
-"node52" -> "node53"
-"node54" [shape = "record", label = "{x}", fillcolor = "aquamarine"]
-"node52" -> "node54"
-"node44" -> "node52"
-"node33" -> "node44"
-"node23" -> "node33"
-"node10" -> "node23"
+"node14" [shape = "record", label = "{7}", fillcolor = "aqua"]
+"node10" -> "node14"
+"node9" -> "node10"
+"node7" -> "node9"
+"node6" -> "node7"
+"node15" [shape = "record", label = "{+}", fillcolor = "coral"]
+"node16" [shape = "record", label = "{15}", fillcolor = "aqua"]
+"node17" [shape = "record", label = "{0}", fillcolor = "aqua"]
+"node16" -> "node17"
+"node18" [shape = "record", label = "{15}", fillcolor = "aqua"]
+"node16" -> "node18"
+"node15" -> "node16"
+"node19" [shape = "record", label = "{0}", fillcolor = "aqua"]
+"node15" -> "node19"
+"node6" -> "node15"
   }

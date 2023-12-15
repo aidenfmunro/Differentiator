@@ -27,8 +27,8 @@ static Node* diffPow (Node* curNode, FILE* outFile);
 #define cL  copyNode (curNode->left)
 #define cR  copyNode (curNode->right)
 
-#define dL  differentiateTree (cL, outFile)
-#define dR  differentiateTree (cR, outFile)
+#define dL  differentiateTree (curNode->left,  outFile)
+#define dR  differentiateTree (curNode->right, outFile)
 
 #include "dsl.h"
 
@@ -221,6 +221,8 @@ static Node* diffPow(Node* curNode, FILE* outFile)
 
         result             = MUL_(cN, ADD_(leftSubPart, rightSubPart)); 
     }
+
+    // 2^x - ? variant
 
     dumpDiffResExpressionTex(result, outFile);
 

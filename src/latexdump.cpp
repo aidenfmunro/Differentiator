@@ -56,7 +56,7 @@ ErrorCode DumpTreeTex(Tree* tree)
 
     system(command1);
 
-    deleteNode(tree->root);
+    // deleteNode(tree->root);
 
     char command2[MAX_COMMAND_LENGTH] = {};
 
@@ -94,7 +94,7 @@ static ErrorCode _dumpTreeTex(Node* node, FILE* outFile)
             {
             case ADD:
             {
-                dumpTex("(");
+                // dumpTex("(");
 
                 DUMP_L_TREE(node);
 
@@ -102,14 +102,14 @@ static ErrorCode _dumpTreeTex(Node* node, FILE* outFile)
 
                 DUMP_R_TREE(node);
 
-                dumpTex(")");
+                // dumpTex(")");
 
                 break;
             }
 
             case SUB:
             {
-                dumpTex("(");
+                // dumpTex("(");
 
                 DUMP_L_TREE(node);
 
@@ -117,7 +117,7 @@ static ErrorCode _dumpTreeTex(Node* node, FILE* outFile)
 
                 DUMP_R_TREE(node);
 
-                dumpTex(")");
+                // dumpTex(")");
 
                 break;
             }
