@@ -35,9 +35,13 @@ ErrorCode DumpTreeTex(Tree* tree)
 
     dumpExpressionTex(tree->root, outFile);
 
-    tree->root = differentiateTree(tree->root, outFile);
+    Node* tempNode = differentiateTree(tree->root, outFile);
 
-    printf("%d\n", Optimise(tree->root));
+    deleteNode(tree->root);
+
+    tree->root = tempNode;
+
+    // printf("%d\n", Optimise(tree->root));
 
     dumpExpressionTex(tree->root, outFile);
 

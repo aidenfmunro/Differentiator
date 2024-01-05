@@ -29,8 +29,9 @@ ErrorCode DumpPlot()
     fclose(inFile);
 
     fflush(outFile);
-
+    
     sleep(TIME_TO_SEE);   
-
+     
     return OK;
 }
+

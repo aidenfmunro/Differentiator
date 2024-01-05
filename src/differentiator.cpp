@@ -164,7 +164,7 @@ static Node* diffTg(Node* curNode, FILE* outFile)
 
     // Node* externalFunc = ... <--- dump this
 
-    Node* result = COMP_FUNC(DIV_(NUM_(1),  POW_(COS_(cR), NUM_(2))), cR);
+    Node* result = COMP_FUNC(DIV_(NUM_(1), POW_(COS_(cR), NUM_(2))), cR);
 
     dumpDiffResExpressionTex(result, outFile);
 

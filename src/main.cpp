@@ -7,21 +7,11 @@ int main(void)
 {
     Tree tree = {};
 
-    tree.root = GetG("cos(15*x+7)");
-
-    // difftree.root = copyNode(tree.root);
-
-   //  DumpTreeTxt(&difftree, "equation.txt");
-    
-    printf("%p\n", tree.root);
+    tree.root = GetG("cos(sin(ln(x)))");
 
     DumpTreeTex(&tree);
 
-    // printf("%p\n", tree.root);
-
-    deleteNode(tree.root);
-
-    // DumpPlot();
+    
 
     return OK; 
 }
